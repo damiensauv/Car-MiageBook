@@ -3,10 +3,10 @@
   
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.javatutorial.tutorials</groupId>
-  <artifactId>SimpleServlet</artifactId>
+  <artifactId>Car-MiageBook</artifactId>
   <version>1</version>
   <packaging>war</packaging>
-  <name>SimpleServlet</name>
+  <name>Car-MiageBook</name>
   <url>https://javatutorial.net</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
