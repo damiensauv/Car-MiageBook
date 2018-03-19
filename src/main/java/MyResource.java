@@ -6,7 +6,7 @@ import javax.ws.rs.core.MediaType;
 /**
  * Root resource (exposed at "myresource" path)
  */
-@Path("myresource")
+@Path("api")
 public class MyResource {
 
     /**
@@ -17,7 +17,10 @@ public class MyResource {
      */
     @GET
     @Produces(MediaType.TEXT_PLAIN)
+    @Path("/test")
     public String getIt() {
+
+
         return "Got it!";
     }
 }
