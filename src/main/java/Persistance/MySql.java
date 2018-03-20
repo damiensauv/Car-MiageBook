@@ -20,7 +20,7 @@ public class MySql {
     private void initConnexion() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         connection = DriverManager.getConnection("jdbc:mysql://webtp.fil.univ-lille1.fr/sauvalle", "sauvalle", "toto62");
-    }1
+    }
 
     public static Connection getInstance() {
         if (connection == null) {
