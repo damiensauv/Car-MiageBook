@@ -14,24 +14,23 @@
 
 <div class="container">
 
-    <form class="form-signin">
+    <form class="form-signin" action="/inscription" method="POST">
         <h2 class="form-signin-heading">Please sign up</h2>
 
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="email" class="sr-only">Email address</label>
+        <input type="email" id="email" class="form-control" placeholder="Email address" required autofocus>
 
-        <label for="inputEmail" class="sr-only">pseudi</label>
-        <input type="email" id="inputPseudo" class="form-control" placeholder="Pseudo" required >
+        <label class="sr-only">pseudo</label>
+        <input type="text" id="pseudo" class="form-control" placeholder="Pseudo" required>
 
-        <label for="inputEmail" class="sr-only">Password</label>
-        <input type="email" id="Password" class="form-control" placeholder="Password" required >
+        <label class="sr-only">Password</label>
+        <input type="text" id="password" class="form-control" placeholder="Password" required>
 
-        <label for="inputEmail" class="sr-only">Name</label>
-        <input type="email" id="Name" class="form-control" placeholder="name" required >
+        <label class="sr-only">Name</label>
+        <input type="text" id="name" class="form-control" placeholder="name" required>
 
-        <label for="inputEmail" class="sr-only">Surname</label>
-        <input type="email" id="Surname" class="form-control" placeholder="Surname" required >
-
+        <label class="sr-only">Surname</label>
+        <input type="text" id="surname" class="form-control" placeholder="Surname" required>
 
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>

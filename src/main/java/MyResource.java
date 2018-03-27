@@ -6,7 +6,7 @@ import javax.ws.rs.core.MediaType;
 /**
  * Root resource (exposed at "myresource" path)
  */
-@Path("api")
+@Path("rest")
 public class MyResource {
 
     /**
