@@ -1,5 +1,7 @@
 package Servlet;
 
+import Service.UserService;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,6 +27,12 @@ public class SignUpServlet extends HttpServlet {
         String password = request.getParameter("password");
         String name = request.getParameter("name");
         String surname = request.getParameter("surname");
-        
+
+        // check if user exist, check pseudo & email
+        /** TODO : Mettre Service en ligne pour le call en haut de la classe */
+
+        // Flush in bd
+
+        // redirect login page
     }
 }

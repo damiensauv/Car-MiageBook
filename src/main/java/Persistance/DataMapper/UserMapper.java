@@ -100,4 +100,11 @@ public class UserMapper extends DataMapper<IUser> {
         System.out.println("Update USER");
     }
 
+    public User findByEmail(String email) {
+        return null;
+    }
+
+    public User findByPseudo(String pseudo) {
+        return null;
+    }
 }

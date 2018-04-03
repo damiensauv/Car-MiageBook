@@ -1,6 +1,7 @@
 package Persistance.DataMapper;
 
-import Persistance.MySql.MySql;
+
+import Persistance.MySql;
 import Util.IDMap;
 
 import java.sql.Connection;

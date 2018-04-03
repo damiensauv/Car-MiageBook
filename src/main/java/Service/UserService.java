@@ -1,25 +1,25 @@
 package Service;
 
-import Domain.User;
+import Persistance.DataMapper.UserMapper;
 
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-
-@Path("user")
 public class UserService {
 
-    @POST
-    @Path("/signup")
-    public User signUp() {
-        User u = new User();
-        u.setNom("damien");
-        return u;
+
+    public boolean checkUserExistEmail(String email){
+        UserMapper um = UserMapper.getInstance();
+
+        um.findByEmail(email);
+
+        return true;
     }
 
-    @POST
-    @Path("/login")
-    public User signIn() {
-        return null;
+    public boolean checkUserExistPseudo(String pseudo){
+        UserMapper um = UserMapper.getInstance();
+
+        um.findByPseudo(pseudo);
+
+        return true;
     }
+
 
 }
