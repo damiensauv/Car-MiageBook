@@ -18,7 +18,7 @@ public class MySql {
 
     // connection a la base MySql
     private void initConnexion() throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
+        Class.forName("com.mysql.jdbc.Driver");
         connection = DriverManager.getConnection("jdbc:mysql://webtp.fil.univ-lille1.fr/sauvalle", "sauvalle", "toto62");
     }
 
