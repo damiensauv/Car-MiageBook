@@ -1,13 +1,12 @@
 package Persistance.DataMapper;
 
-import Domain.Interface.IUser;
 import Domain.User;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserMapper extends DataMapper<IUser> {
+public class UserMapper extends DataMapper {
 
     private static UserMapper instance = null;
 
@@ -21,27 +20,10 @@ public class UserMapper extends DataMapper<IUser> {
     private UserMapper() {
     }
 
-    private User createUser(ResultSet rs) throws SQLException {
 
-/*        User p = new User();
-        p.setId(rs.getInt(1));
-        p.setUsername(rs.getString(2));
-        p.setPassword(rs.getString(3));
-        return p;
-        */
-        return null;
-    }
+    public User find(Integer id) {
 
-    public IUser find(Object idx) {
-
-        Integer id = (Integer) idx;
-
-        IUser p = idMap.get(id);
-        if (p != null) {
-            System.out.println("Get From IDMAP");
-            return p;
-        }
-
+        // mettre tout les champs
         String req = "SELECT id, username, password FROM user WHERE id=?";
         try {
             PreparedStatement ps = connection.prepareStatement(req);
@@ -51,53 +33,30 @@ public class UserMapper extends DataMapper<IUser> {
                 System.out.println("User not in bd " + id);
                 return null;
             }
-            // p = this.createUser(rs);
-            idMap.put(id, p);
-            //p.add(UnitOfWork.getInstance());
-            return p;
+
+            // create User
+
+            // return user
+            return null;
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public IUser findByUsername(String username) {
-        IUser p;
+    public Integer insert(User o) throws SQLException {
+        String query = "INSERT INTO Users(Mail, Nom, Prenom, Pseudo, Password) VALUES (?,?,?,?,?)";
 
-        String req = "SELECT id, username, password FROM user WHERE username=?";
-        try {
-            PreparedStatement ps = connection.prepareStatement(req);
-            ps.setString(1, username);
-            ResultSet rs = ps.executeQuery();
-            if (!rs.next()) {
-                System.out.println("not in bd " + username);
-                return null;
-            }
-            p = idMap.get(rs.getInt(1));
-            if (p != null) {
-                System.out.println("Get From IDMAP");
-                return p;
-            }
-            // p = this.createUser(rs);
-            idMap.put(rs.getInt(1), p);
-            //p.add(UnitOfWork.getInstance());
-            return p;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-    public Integer insert(IUser o) {
+        preparedStatement.setString(1, o.getMail());
+        preparedStatement.setString(2, o.getNom());
+        preparedStatement.setString(3, o.getPrenom());
+        preparedStatement.setString(4, o.getPseudo());
+        preparedStatement.setString(5, o.getPassword());
+        preparedStatement.executeUpdate();
+
         return 0;
-    }
-
-    void delete(IUser o) {
-
-    }
-
-    public void update(IUser o) {
-        System.out.println("Update USER");
     }
 
     public User findByEmail(String email) {

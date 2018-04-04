@@ -1,5 +1,7 @@
 package Servlet;
 
+import Domain.User;
+import Persistance.DataMapper.UserMapper;
 import Service.UserService;
 
 import javax.servlet.RequestDispatcher;
@@ -7,9 +9,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.core.Context;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class SignUpServlet extends HttpServlet {
+
+    @Context
+    private UserService userService;
+
+    @Context
+    private UserMapper userMapper;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -28,11 +38,21 @@ public class SignUpServlet extends HttpServlet {
         String name = request.getParameter("name");
         String surname = request.getParameter("surname");
 
-        // check if user exist, check pseudo & email
-        /** TODO : Mettre Service en ligne pour le call en haut de la classe */
+        userService.checkUserExistEmail(email);
+        userService.checkUserExistPseudo(pseudo);
+        // faire les conditions pour les check
 
-        // Flush in bd
+        User user = new User(email, pseudo, password, name, surname);
 
-        // redirect login page
+        try {
+            userMapper.insert(user); // check retour / Exception !
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // voir pour envoyer un truc comme quoi bien inscrit
+
+        RequestDispatcher view = request.getRequestDispatcher("/Template/login.html");
+        view.forward(request, response);
     }
 }
