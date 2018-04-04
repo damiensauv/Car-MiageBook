@@ -18,8 +18,9 @@ public class MySql {
 
     // connection a la base MySql
     private void initConnexion() throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.jdbc.Driver");
-        connection = DriverManager.getConnection("jdbc:mysql://webtp.fil.univ-lille1.fr/sauvalle", "sauvalle", "toto62");
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        connection = DriverManager.getConnection("jdbc:mysql://webtp.fil.univ-lille1.fr/sauvalle?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "sauvalle", "toto62");
+
     }
 
     public static Connection getInstance() {
