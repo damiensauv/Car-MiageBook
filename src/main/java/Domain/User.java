@@ -24,4 +24,8 @@ public class User {
         this.prenom = name;
         this.nom = surname;
     }
+
+    public User() {
+        
+    }
 }
