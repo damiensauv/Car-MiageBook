@@ -39,18 +39,20 @@ public class SignUpServlet extends HttpServlet {
         String name = request.getParameter("name");
         String surname = request.getParameter("surname");
 
+        System.out.println(email);
+
         userService.checkUserExistEmail(email);
         userService.checkUserExistPseudo(pseudo);
         // faire les conditions pour les check
 
         User user = new User(email, pseudo, password, name, surname);
-
+/*
         try {
             userMapper.insert(user); // check retour / Exception !
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+*/
         // voir pour envoyer un truc comme quoi bien inscrit
 
         RequestDispatcher view = request.getRequestDispatcher("/Template/login.html");
