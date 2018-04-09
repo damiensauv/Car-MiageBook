@@ -46,13 +46,13 @@ public class SignUpServlet extends HttpServlet {
         // faire les conditions pour les check
 
         User user = new User(email, pseudo, password, name, surname);
-/*
+
         try {
             userMapper.insert(user); // check retour / Exception !
         } catch (SQLException e) {
             e.printStackTrace();
         }
-*/
+
         // voir pour envoyer un truc comme quoi bien inscrit
 
         RequestDispatcher view = request.getRequestDispatcher("/Template/login.html");
