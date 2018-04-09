@@ -28,4 +28,8 @@ public class UserService {
     }
 
 
+    public boolean checkLogin(String email, String password) {
+
+        return true;
+    }
 }
