@@ -11,12 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class LoginServlet extends HttpServlet {
+public class HomeServlet extends HttpServlet {
 
     private UserMapper userMapper;
     private UserService userService;
 
-    public LoginServlet(){
+    public HomeServlet(){
         userMapper = UserMapper.getInstance();
         userService = UserService.getInstance();
     }
@@ -24,32 +24,38 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher view = request.getRequestDispatcher("/Template/login.html");
+        RequestDispatcher view = request.getRequestDispatcher("/Template/home.html");
         view.forward(request, response);
     }
+
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
+        String path = request.getServletPath();
+
+        // post status
+        if (path.equals("/homeStatus")){
+
+            String status = request.getParameter("status");
+            // recup from session la personne co
+
+            HttpSession session = request.getSession();
+
+            Object id = session.getAttribute("user");
+
+            System.out.println("Status =>" + status + " id => " + id);
 
 
-        userService.getInstance().checkUserExistEmail(email);
+        }
+        else if (path.equals("/homeCommentaire")){
 
-        // check mail & password
-        userService.getInstance().checkLogin(email, password);
+        }
 
-        //get Id of user for sessions
 
-        // creation cookie/session, si tout ce passe bien
-        HttpSession session = request.getSession(true);
-        session.setAttribute("user", 1);
 
-        // envoyer vers la bonne pages !! // page accueil
         RequestDispatcher view = request.getRequestDispatcher("/Template/home.html");
         view.forward(request, response);
     }
-
 }

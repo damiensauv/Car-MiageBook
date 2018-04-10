@@ -29,5 +29,21 @@
         <url-pattern>/inscription</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>HomeServlet</servlet-name>
+        <servlet-class>Servlet.HomeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HomeServlet</servlet-name>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeServlet</servlet-name>
+        <url-pattern>/homeStatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeServlet</servlet-name>
+        <url-pattern>/homeCommentaire</url-pattern>
+    </servlet-mapping>
 
 </web-app>
