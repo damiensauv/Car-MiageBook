@@ -5,6 +5,7 @@ import Domain.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserMapper extends DataMapper {
@@ -73,32 +74,41 @@ public class UserMapper extends DataMapper {
         return null;
     }
 
-    public List<User> findAll() {
-        String req = "SELECT * FROM Users";
+
+    protected User createUser(ResultSet rs) {
+        User u = new User();
         try {
-            PreparedStatement ps = connection.prepareStatement(req);
-
-            ResultSet rs = ps.executeQuery();
-            if (!rs.next()) {
-                System.out.println("Empty Table Users");
-                return null;
-            }
-
-            // create User TODO => faire une fct pour
-            User u = new User();
             u.setId(rs.getInt("Id_User"));
             u.setPseudo(rs.getString("Pseudo"));
             u.setMail(rs.getString("Mail"));
             u.setNom(rs.getString("Nom"));
             u.setPrenom(rs.getString("Prenom"));
             u.setPassword(rs.getString("Password"));
+            return u;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
-            return null;
+    public List<User> findAll() {
+        String req = "SELECT * FROM Users";
+        List<User> users = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(req);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                User u = this.createUser(rs);
+                users.add(u);
+            }
+
+            return users;
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
-
 
 
     }

@@ -3,6 +3,8 @@ package Service;
 import Domain.User;
 import Persistance.DataMapper.UserMapper;
 
+import java.util.List;
+
 public class UserService {
 
     private static UserService instance = null;
@@ -39,9 +41,9 @@ public class UserService {
     public void getAllUsersWithout(Integer id) {
 
         UserMapper um = UserMapper.getInstance();
-        um.findAll();
+        List<User> users = um.findAll();
 
-
+        // TODO => supprimer la personne ID
 
     }
 }
