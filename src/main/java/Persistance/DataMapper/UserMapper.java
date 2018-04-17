@@ -5,6 +5,7 @@ import Domain.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class UserMapper extends DataMapper {
 
@@ -70,5 +71,35 @@ public class UserMapper extends DataMapper {
 
     public User findByPseudo(String pseudo) {
         return null;
+    }
+
+    public List<User> findAll() {
+        String req = "SELECT * FROM Users";
+        try {
+            PreparedStatement ps = connection.prepareStatement(req);
+
+            ResultSet rs = ps.executeQuery();
+            if (!rs.next()) {
+                System.out.println("Empty Table Users");
+                return null;
+            }
+
+            // create User TODO => faire une fct pour
+            User u = new User();
+            u.setId(rs.getInt("Id_User"));
+            u.setPseudo(rs.getString("Pseudo"));
+            u.setMail(rs.getString("Mail"));
+            u.setNom(rs.getString("Nom"));
+            u.setPrenom(rs.getString("Prenom"));
+            u.setPassword(rs.getString("Password"));
+
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+
     }
 }

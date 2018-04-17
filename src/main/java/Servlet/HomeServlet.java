@@ -57,7 +57,7 @@ public class HomeServlet extends HttpServlet {
 
             Status status = new Status(statusString, u);
 
-          
+
             try {
                 statusMapper.insert(status);
             } catch (SQLException e) {

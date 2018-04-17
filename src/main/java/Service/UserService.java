@@ -1,5 +1,8 @@
 package Service;
 
+import Domain.User;
+import Persistance.DataMapper.UserMapper;
+
 public class UserService {
 
     private static UserService instance = null;
@@ -31,5 +34,14 @@ public class UserService {
     public boolean checkLogin(String email, String password) {
 
         return true;
+    }
+
+    public void getAllUsersWithout(Integer id) {
+
+        UserMapper um = UserMapper.getInstance();
+        um.findAll();
+
+
+
     }
 }
