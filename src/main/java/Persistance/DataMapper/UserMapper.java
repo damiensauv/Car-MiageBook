@@ -24,7 +24,7 @@ public class UserMapper extends DataMapper {
     public User find(Integer id) {
 
         // mettre tout les champs
-        String req = "SELECT id, username, password FROM user WHERE id=?";
+        String req = "SELECT * FROM Users WHERE Id_User=?";
         try {
             PreparedStatement ps = connection.prepareStatement(req);
             ps.setInt(1, id);
@@ -33,11 +33,16 @@ public class UserMapper extends DataMapper {
                 System.out.println("User not in bd " + id);
                 return null;
             }
-
             // create User
+            User u = new User();
+            u.setId(rs.getInt("Id_User"));
+            u.setPseudo(rs.getString("Pseudo"));
+            u.setMail(rs.getString("Mail"));
+            u.setNom(rs.getString("Nom"));
+            u.setPrenom(rs.getString("Prenom"));
+            u.setPassword(rs.getString("Password"));
 
-            // return user
-            return null;
+            return u;
         } catch (SQLException e) {
             e.printStackTrace();
             return null;

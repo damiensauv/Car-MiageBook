@@ -18,5 +18,8 @@ public class Status {
     private Date date;
     private User owner;
 
-
+    public Status(String text, User owner) {
+        this.text = text;
+        this.owner = owner;
+    }
 }
