@@ -42,13 +42,13 @@ public class UserService {
             return null;
     }
 
-    public void getAllUsersWithout(Integer id) {
+    public List<User> getAllUsersWithout(Integer id) {
 
         UserMapper um = UserMapper.getInstance();
         List<User> users = um.findAll();
 
         // TODO => supprimer la personne ID
-
+        return users;
     }
 
     public boolean signup(User user) {

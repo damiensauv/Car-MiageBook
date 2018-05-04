@@ -28,4 +28,7 @@ public class User {
     public User() {
 
     }
+
+    // TODO avoir une fonction qui check si Ami avec quelqu'un
+
 }
