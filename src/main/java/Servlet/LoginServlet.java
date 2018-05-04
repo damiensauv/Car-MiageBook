@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher view = request.getRequestDispatcher("/Template/login.html");
+        RequestDispatcher view = request.getRequestDispatcher("/Template/login.jsp");
         view.forward(request, response);
     }
 
@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
         session.setAttribute("user", 1);
 
         // envoyer vers la bonne pages !! // page accueil
-        RequestDispatcher view = request.getRequestDispatcher("/Template/home.html");
+        RequestDispatcher view = request.getRequestDispatcher("/Template/home.jsp");
         view.forward(request, response);
     }
 

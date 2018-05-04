@@ -43,7 +43,7 @@ public class SignUpServlet extends HttpServlet {
         User user = new User(email, pseudo, password, name, surname);
 
         if (userService.signup(user)) {
-            RequestDispatcher view = request.getRequestDispatcher("/Template/login.html");
+            RequestDispatcher view = request.getRequestDispatcher("/Template/login.jsp");
             view.forward(request, response);
         } else {
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/Template/inscription.jsp");
