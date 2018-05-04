@@ -35,7 +35,7 @@ public class UserMapper extends DataMapper {
                 System.out.println("User not in bd " + id);
                 return null;
             }
-            // create User
+            // TODO create User
             User u = new User();
             u.setId(rs.getInt("Id_User"));
             u.setPseudo(rs.getString("Pseudo"));
@@ -66,12 +66,58 @@ public class UserMapper extends DataMapper {
         return 0;
     }
 
+    @SuppressWarnings("Duplicates")
     public User findByEmail(String email) {
-        return null;
+        String req = "SELECT * FROM Users WHERE Mail=?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(req);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (!rs.next()) {
+                System.out.println("User not in bd " + email);
+                return null;
+            }
+            // create User
+            User u = new User();
+            u.setId(rs.getInt("Id_User"));
+            u.setPseudo(rs.getString("Pseudo"));
+            u.setMail(rs.getString("Mail"));
+            u.setNom(rs.getString("Nom"));
+            u.setPrenom(rs.getString("Prenom"));
+            u.setPassword(rs.getString("Password"));
+
+            return u;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
+    @SuppressWarnings("Duplicates")
     public User findByPseudo(String pseudo) {
-        return null;
+        String req = "SELECT * FROM Users WHERE Pseudo=?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(req);
+            ps.setString(1, pseudo);
+            ResultSet rs = ps.executeQuery();
+            if (!rs.next()) {
+                System.out.println("User not in bd " + pseudo);
+                return null;
+            }
+            // create User
+            User u = new User();
+            u.setId(rs.getInt("Id_User"));
+            u.setPseudo(rs.getString("Pseudo"));
+            u.setMail(rs.getString("Mail"));
+            u.setNom(rs.getString("Nom"));
+            u.setPrenom(rs.getString("Prenom"));
+            u.setPassword(rs.getString("Password"));
+
+            return u;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 

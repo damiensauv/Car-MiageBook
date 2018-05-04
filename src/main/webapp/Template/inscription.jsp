@@ -30,7 +30,7 @@
         <input type="text" id="name" name="name" class="form-control" placeholder="name" required>
 
         <label class="sr-only">Surname</label>
-        <input type="text" id="surname" name="surname" class="form-control" placeholder="Surname" required>
+        <input type="text" id="surname" name="surname" class="form-control" placeholder="Surname" >
 
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>

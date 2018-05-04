@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
+import java.io.PrintWriter;
 
 public class SignUpServlet extends HttpServlet {
 
@@ -25,7 +25,7 @@ public class SignUpServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher view = request.getRequestDispatcher("/Template/inscription.html");
+        RequestDispatcher view = request.getRequestDispatcher("/Template/inscription.jsp");
         view.forward(request, response);
     }
 
@@ -33,29 +33,24 @@ public class SignUpServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
+        // TODO gere erreur si il y a qui manque(VIDE)
         String email = request.getParameter("email");
         String pseudo = request.getParameter("pseudo");
         String password = request.getParameter("password");
         String name = request.getParameter("name");
         String surname = request.getParameter("surname");
 
-        System.out.println(email);
-
-        userService.checkUserExistEmail(email);
-        userService.checkUserExistPseudo(pseudo);
-        // faire les conditions pour les check
-
         User user = new User(email, pseudo, password, name, surname);
 
-        try {
-            userMapper.insert(user); // check retour / Exception !
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (userService.signup(user)) {
+            RequestDispatcher view = request.getRequestDispatcher("/Template/login.html");
+            view.forward(request, response);
+        } else {
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/Template/inscription.jsp");
+            PrintWriter out = response.getWriter();
+            out.println("<div class=\"alert alert-danger\"> Une erreur s'est produite</div>");
+            rd.include(request, response);
         }
 
-        // voir pour envoyer un truc comme quoi bien inscrit
-
-        RequestDispatcher view = request.getRequestDispatcher("/Template/login.html");
-        view.forward(request, response);
     }
 }
