@@ -19,8 +19,9 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-item nav-link active" href="#">Home</a>
-                <a class="nav-item nav-link" href="#">Friends</a>
-                <a class="nav-item nav-link" href="/allUsers">All Users</a>
+                <a class="nav-item nav-link" href="#">Profile</a>
+                <a class="nav-item nav-link" href="#">All Users</a>
+                <a class="nav-item nav-link" href="#">Logout</a>
             </div>
         </div>
     </nav>
