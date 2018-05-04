@@ -1,5 +1,6 @@
 package Servlet;
 
+import Domain.User;
 import Persistance.DataMapper.UserMapper;
 import Service.UserService;
 
@@ -10,13 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class LoginServlet extends HttpServlet {
 
     private UserMapper userMapper;
     private UserService userService;
 
-    public LoginServlet(){
+    public LoginServlet() {
         userMapper = UserMapper.getInstance();
         userService = UserService.getInstance();
     }
@@ -24,6 +26,9 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        // TODO check if already connect in session
+
         RequestDispatcher view = request.getRequestDispatcher("/Template/login.jsp");
         view.forward(request, response);
     }
@@ -32,24 +37,27 @@ public class LoginServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
+        User user = null;
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
+        if ((user = userService.login(email, password)) != null) {
+            HttpSession session = request.getSession(true);
+            session.setAttribute("user", user.getId());
 
-        userService.getInstance().checkUserExistEmail(email);
+            RequestDispatcher view = request.getRequestDispatcher("/Template/home.jsp");
+            view.forward(request, response);
 
-        // check mail & password
-        userService.getInstance().checkLogin(email, password);
+        } else {
 
-        //get Id of user for sessions
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/Template/login.jsp");
+            PrintWriter out = response.getWriter();
+            out.println("<div class=\"alert alert-danger\"> Login ou mot de passe invalide</div>");
+            rd.include(request, response);
 
-        // creation cookie/session, si tout ce passe bien
-        HttpSession session = request.getSession(true);
-        session.setAttribute("user", 1);
+        }
 
-        // envoyer vers la bonne pages !! // page accueil
-        RequestDispatcher view = request.getRequestDispatcher("/Template/home.jsp");
-        view.forward(request, response);
+
     }
 
 }

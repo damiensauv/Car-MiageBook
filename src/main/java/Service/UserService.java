@@ -30,10 +30,16 @@ public class UserService {
         return this.userMapper.findByPseudo(pseudo) == null;
     }
 
+    public User checkLogin(String email, String password) {
 
-    public boolean checkLogin(String email, String password) {
-
-        return true;
+        User user;
+        if ((user = this.userMapper.findByEmail(email)) != null) {
+            if (password.equals(user.getPassword()))
+                return user;
+            else
+                return null;
+        } else
+            return null;
     }
 
     public void getAllUsersWithout(Integer id) {
@@ -60,5 +66,9 @@ public class UserService {
         }
 
         return true;
+    }
+
+    public User login(String email, String password) {
+        return checkLogin(email, password);
     }
 }
