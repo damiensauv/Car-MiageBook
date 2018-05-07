@@ -12,6 +12,7 @@
 
 <%
     List<User> users = (List<User>) request.getAttribute("users");
+    User user = (User) request.getAttribute("user");
 %>
 
 
@@ -31,11 +32,28 @@
 
     <ul>
         <%
-            for (User u : users) { %>
+            for (User u : users) {
 
-            <li><% out.print(u.getPseudo()); %></li>
+                if (!u.getId().equals(user.getId())) {
+        %>
 
-            <%
+        <li>
+            <% out.print(u.getPseudo()); %>
+
+            <% if (user.isFriend(u.getId())) { %>
+
+            <button type="submit" value="submit" id="<%out.print(u.getId());%>">Unfollow</button>
+
+            <% } else { %>
+
+            <button type="submit" value="submit">follow</button>
+
+            <% }%>
+
+        </li>
+        <%
+                }
+
             }
         %>
     </ul>

@@ -23,6 +23,43 @@ public class UserMapper extends DataMapper {
     }
 
 
+    private User createUser(ResultSet rs) throws SQLException {
+        User u = new User();
+        u.setId(rs.getInt("Id_User"));
+        u.setPseudo(rs.getString("Pseudo"));
+        u.setMail(rs.getString("Mail"));
+        u.setNom(rs.getString("Nom"));
+        u.setPrenom(rs.getString("Prenom"));
+        u.setPassword(rs.getString("Password"));
+        return u;
+    }
+
+    private List<User> getFriend(Integer id) {
+        String req = "SELECT * FROM Friends WHERE Id_User=?";
+        List<User> users = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(req);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (!rs.next()) {
+                System.out.println("getFriend User not in bd " + id);
+                return null;
+            }
+
+            while (rs.next()) {
+                User u = this.createUser(rs);
+                users.add(u);
+            }
+            return users;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+
     public User find(Integer id) {
 
         // mettre tout les champs
@@ -32,17 +69,12 @@ public class UserMapper extends DataMapper {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (!rs.next()) {
-                System.out.println("User not in bd " + id);
+                System.out.println("Find User not in bd " + id);
                 return null;
             }
-            // TODO create User
-            User u = new User();
-            u.setId(rs.getInt("Id_User"));
-            u.setPseudo(rs.getString("Pseudo"));
-            u.setMail(rs.getString("Mail"));
-            u.setNom(rs.getString("Nom"));
-            u.setPrenom(rs.getString("Prenom"));
-            u.setPassword(rs.getString("Password"));
+
+            User u = this.createUser(rs);
+            u.setFriends(this.getFriend(id));
 
             return u;
         } catch (SQLException e) {
@@ -74,18 +106,12 @@ public class UserMapper extends DataMapper {
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             if (!rs.next()) {
-                System.out.println("User not in bd " + email);
+                System.out.println("Email User not in bd " + email);
                 return null;
             }
             // create User
-            User u = new User();
-            u.setId(rs.getInt("Id_User"));
-            u.setPseudo(rs.getString("Pseudo"));
-            u.setMail(rs.getString("Mail"));
-            u.setNom(rs.getString("Nom"));
-            u.setPrenom(rs.getString("Prenom"));
-            u.setPassword(rs.getString("Password"));
-
+            User u = this.createUser(rs);
+            u.setFriends(this.getFriend(u.getId()));
             return u;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -101,40 +127,17 @@ public class UserMapper extends DataMapper {
             ps.setString(1, pseudo);
             ResultSet rs = ps.executeQuery();
             if (!rs.next()) {
-                System.out.println("User not in bd " + pseudo);
+                System.out.println("Pseudo User not in bd " + pseudo);
                 return null;
             }
             // create User
-            User u = new User();
-            u.setId(rs.getInt("Id_User"));
-            u.setPseudo(rs.getString("Pseudo"));
-            u.setMail(rs.getString("Mail"));
-            u.setNom(rs.getString("Nom"));
-            u.setPrenom(rs.getString("Prenom"));
-            u.setPassword(rs.getString("Password"));
-
+            User u = this.createUser(rs);
+            u.setFriends(this.getFriend(u.getId()));
             return u;
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
-    }
-
-
-    protected User createUser(ResultSet rs) {
-        User u = new User();
-        try {
-            u.setId(rs.getInt("Id_User"));
-            u.setPseudo(rs.getString("Pseudo"));
-            u.setMail(rs.getString("Mail"));
-            u.setNom(rs.getString("Nom"));
-            u.setPrenom(rs.getString("Prenom"));
-            u.setPassword(rs.getString("Password"));
-            return u;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     public List<User> findAll() {

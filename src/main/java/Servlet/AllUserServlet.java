@@ -28,8 +28,10 @@ public class AllUserServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Integer id = (Integer) session.getAttribute("user");
 
-        List<User> users = userService.getAllUsersWithout(id);
+        User user = userService.getUser(id);
+        List<User> users = userService.getAllUsers(id);
 
+        request.setAttribute("user", user);
         request.setAttribute("users", users);
 
         RequestDispatcher view = request.getRequestDispatcher("/Template/AllUsers.jsp");

@@ -29,6 +29,16 @@ public class User {
 
     }
 
-    // TODO avoir une fonction qui check si Ami avec quelqu'un
+    public boolean isFriend(Integer idFriend) {
 
+        if (friends == null)
+            return false;
+
+        for (User u : friends) {
+            if (u.getId().equals(idFriend)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
