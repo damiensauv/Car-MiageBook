@@ -16,7 +16,7 @@ public class User {
     private String nom;
     private String prenom;
     private String password;
-    private List<User> friends;
+    private List<Integer> friends;
 
     public User(String email, String pseudo, String password, String name, String surname) {
         this.mail = email;
@@ -36,11 +36,11 @@ public class User {
         if (friends == null)
             return false;
 
-        for (User u : friends) {
+        for (Integer u : friends) {
 
-            System.out.println("Friends : " + u.getId());
+            System.out.println("Friends : " + u);
 
-            if (u.getId().equals(idFriend)) {
+            if (u.equals(idFriend)) {
 
                 return true;
             }

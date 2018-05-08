@@ -1,5 +1,6 @@
 package Persistance.DataMapper;
 
+import Domain.Commentaire;
 import Domain.Status;
 
 import java.sql.PreparedStatement;
@@ -44,7 +45,7 @@ public class StatusMapper extends DataMapper {
     }
 
     public Status createStatus(ResultSet rs) throws SQLException, ParseException {
-        
+
         Status status = new Status();
 
         status.setId(rs.getInt("Id_Status"));
@@ -81,7 +82,6 @@ public class StatusMapper extends DataMapper {
             return null;
         }
 
-
     }
 
     public Status find(Integer id) {
@@ -101,5 +101,58 @@ public class StatusMapper extends DataMapper {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public void insertCommentaire(Commentaire commentaire) throws SQLException {
+
+        Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String query = "INSERT INTO Comments (Id_Status, Id_User, Date, Text) VALUES (?,?,?,?)";
+
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+        preparedStatement.setInt(1, commentaire.getIdStatus());
+        preparedStatement.setInt(2, commentaire.getOwner().getId());
+        preparedStatement.setString(3, formatter.format(commentaire.getDate()));
+        preparedStatement.setString(4, commentaire.getText());
+        preparedStatement.executeUpdate();
+
+    }
+
+    public List<Commentaire> findComs(Integer id) {
+
+        String req = "SELECT * FROM Comments WHERE Id_Status=?";
+        List<Commentaire> commentaires = new ArrayList<>();
+        try {
+            PreparedStatement ps = connection.prepareStatement(req);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (!rs.next()) {
+                System.out.println("get commentaire not in bd " + id);
+                return null;
+            }
+            rs.beforeFirst();
+
+            while (rs.next()) {
+                commentaires.add(createComm(rs));
+            }
+            return commentaires;
+        } catch (SQLException | ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    private Commentaire createComm(ResultSet rs) throws SQLException, ParseException {
+
+        Commentaire commentaire = new Commentaire();
+
+        commentaire.setId(rs.getInt("Id_Comment"));
+        commentaire.setIdStatus(rs.getInt("Id_Status"));
+        commentaire.setText(rs.getString("Text"));
+        commentaire.setDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString("Date")));
+        commentaire.setOwner(userMapper.find(rs.getInt("Id_User")));
+
+        return commentaire;
     }
 }

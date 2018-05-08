@@ -15,4 +15,14 @@ public class Commentaire {
     private User owner;
     private String text;
 
+    public Commentaire(String co, User u, Integer idst) {
+        this.idStatus = idst;
+        this.text = co;
+        this.owner = u;
+        this.date = new Date();
+    }
+
+    public Commentaire() {
+
+    }
 }

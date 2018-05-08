@@ -34,9 +34,9 @@ public class UserMapper extends DataMapper {
         return u;
     }
 
-    private List<User> getFriend(Integer id) {
+    private List<Integer> getFriend(Integer id) {
         String req = "SELECT * FROM Friends WHERE Id_User=?";
-        List<User> users = new ArrayList<>();
+        List<Integer> users = new ArrayList<>();
 
         try {
             PreparedStatement ps = connection.prepareStatement(req);
@@ -49,9 +49,8 @@ public class UserMapper extends DataMapper {
             rs.beforeFirst();
 
             while (rs.next()) {
-                System.out.println("Yolo " + rs.getInt("Id_Friend"));
-                User u = this.find(rs.getInt("Id_Friend"));
-                users.add(u);
+
+                users.add(rs.getInt("Id_Friend"));
             }
             return users;
         } catch (SQLException e) {
@@ -76,7 +75,7 @@ public class UserMapper extends DataMapper {
             }
             System.out.println("Find User");
             User u = this.createUser(rs);
-            List<User> users = this.getFriend(u.getId());
+            List<Integer> users = this.getFriend(u.getId());
             if (users != null)
                 u.setFriends(users);
 
@@ -115,7 +114,7 @@ public class UserMapper extends DataMapper {
             }
             // create User
             User u = this.createUser(rs);
-            List<User> users = this.getFriend(u.getId());
+            List<Integer> users = this.getFriend(u.getId());
             if (users != null)
                 u.setFriends(users);
             return u;
@@ -138,7 +137,7 @@ public class UserMapper extends DataMapper {
             }
             // create User
             User u = this.createUser(rs);
-            List<User> users = this.getFriend(u.getId());
+            List<Integer> users = this.getFriend(u.getId());
             if (users != null)
                 u.setFriends(users);
             return u;

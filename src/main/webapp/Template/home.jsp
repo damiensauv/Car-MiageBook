@@ -35,7 +35,8 @@
 
 
     <%
-        for (Status s : status) {
+        if (status != null)
+            for (Status s : status) {
     %>
 
 
@@ -48,7 +49,7 @@
 
 
     <%
-        }
+            }
     %>
 
 

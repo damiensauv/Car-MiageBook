@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProfileServlet extends HttpServlet {
 
@@ -28,6 +30,12 @@ public class ProfileServlet extends HttpServlet {
         Integer id = (Integer) session.getAttribute("user");
 
         User user = userService.getUser(id);
+        List<User> friends = new ArrayList<>();
+        for (Integer i : user.getFriends()){
+            friends.add(userService.getUser(i));
+        }
+
+        request.setAttribute("friends", friends);
         request.setAttribute("user", user);
 
         RequestDispatcher view = request.getRequestDispatcher("/Template/profile.jsp");

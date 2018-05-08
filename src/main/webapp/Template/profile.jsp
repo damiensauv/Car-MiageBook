@@ -1,4 +1,5 @@
 <%@ page import="Domain.User" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +16,7 @@
 <body>
 <%
     User user = (User) request.getAttribute("user");
+    List<User> friends = (List<User>) request.getAttribute("friends");
 %>
 
 <div class="container">
@@ -30,7 +32,7 @@
     <ul>
         <%
             if (user.getFriends() != null)
-                for (User u : user.getFriends()) {
+                for (User u : friends) {
 
         %>
 

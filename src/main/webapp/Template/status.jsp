@@ -1,4 +1,6 @@
-<%@ page import="Domain.Status" %><%--
+<%@ page import="Domain.Commentaire" %>
+<%@ page import="Domain.Status" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: dam
   Date: 08/05/18
@@ -19,6 +21,7 @@
 
     <%
         Status s = (Status) request.getAttribute("status");
+        List<Commentaire> coms = (List<Commentaire>) request.getAttribute("coms");
     %>
 
     <div style="border: black solid">
@@ -27,6 +30,28 @@
         <h3><% out.print(s.getTitle());%></h3>
         <div><% out.print(s.getText());%></div>
     </div>
+    <br>
+    <%
+        for (Commentaire c : coms) {
+    %>
+    <div style="border: black solid">
+        <h3><% out.print(c.getOwner().getPseudo());%></h3>
+        <h3><% out.print(c.getDate());%></h3>
+        <div><% out.print(c.getText());%></div>
+    </div>
+
+    <%
+        }
+    %>
+
+
+    <br>
+    <form class="form-status" action="/commentaire?s=<% out.print(s.getId());%>" method="POST">
+
+        <input name="comment" type="text" id="inputstatus" class="form-control" placeholder="Write comment">
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Comment</button>
+    </form>
 
 </div>
 

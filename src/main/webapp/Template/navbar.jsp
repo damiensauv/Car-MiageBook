@@ -11,10 +11,10 @@
 
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="#">Home</a>
+            <a class="nav-item nav-link" href="/home">Home</a>
             <a class="nav-item nav-link" href="/profile">Profile</a>
             <a class="nav-item nav-link" href="/allUsers">All Users</a>
-            <a class="nav-item nav-link" href="#">Logout</a>
+            <a class="nav-item nav-link" href="/logout">Logout</a>
         </div>
     </div>
 </nav>
