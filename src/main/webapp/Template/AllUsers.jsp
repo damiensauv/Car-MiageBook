@@ -46,7 +46,7 @@
 
             <% } else { %>
 
-            <button type="submit" value="submit" id="<%out.print(u.getId());%>>follow</button>
+            <button type="submit" value="submit" id="<%out.print(u.getId());%>">follow</button>
 
             <% }%>
 
