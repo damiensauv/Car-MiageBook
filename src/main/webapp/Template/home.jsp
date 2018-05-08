@@ -1,3 +1,5 @@
+<%@ page import="Domain.Status" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,11 +14,16 @@
 
 <body>
 
+<%
+    List<Status> status = (List<Status>) request.getAttribute("status");
+
+%>
+
 <div class="container">
 
     <%@ include file="navbar.jsp" %>
 
-<br>
+    <br>
     <form class="form-status" action="/homeStatus" method="POST">
         <label for="inputstatus" class="sr-only">Status : </label>
 
@@ -25,6 +32,24 @@
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Publish</button>
     </form>
+
+
+    <%
+        for (Status s : status) {
+    %>
+
+
+    <div style="border: black solid">
+        <h3><% out.print(s.getOwner().getPseudo());%></h3>
+        <h3><% out.print(s.getDate());%></h3>
+        <h3><a href="/status?s=<%out.print(s.getId());%>"><% out.print(s.getTitle());%></a></h3>
+        <div><% out.print(s.getText());%></div>
+    </div>
+
+
+    <%
+        }
+    %>
 
 
 </div> <!-- /container -->

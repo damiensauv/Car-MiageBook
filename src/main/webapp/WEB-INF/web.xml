@@ -56,13 +56,17 @@
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
     </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>StatusServlet</servlet-name>
+        <servlet-class>Servlet.StatusServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
-        <servlet-name>HomeServlet</servlet-name>
-        <url-pattern>/homeStatus</url-pattern>
+        <servlet-name>StatusServlet</servlet-name>
+        <url-pattern>/status</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>HomeServlet</servlet-name>
-        <url-pattern>/homeCommentaire</url-pattern>
-    </servlet-mapping>
+
+
 
 </web-app>

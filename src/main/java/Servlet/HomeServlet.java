@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.SQLException;
+import java.util.List;
 
 public class HomeServlet extends HttpServlet {
 
@@ -34,7 +34,15 @@ public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+
         // TODO Check if User Connect
+        HttpSession session = request.getSession();
+        Integer id = (Integer) session.getAttribute("user");
+
+        List<Status> status = statusService.getStatusUser(id);
+
+
+        request.setAttribute("status", status);
 
         RequestDispatcher view = request.getRequestDispatcher("/Template/home.jsp");
         view.forward(request, response);
@@ -63,13 +71,9 @@ public class HomeServlet extends HttpServlet {
 
             statusService.insert(status);
 
-
-        } else if (path.equals("/homeCommentaire")) {
-
         }
 
 
-        RequestDispatcher view = request.getRequestDispatcher("/Template/home.jsp");
-        view.forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/home");
     }
 }

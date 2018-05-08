@@ -45,8 +45,8 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession(true);
             session.setAttribute("user", user.getId());
 
-            RequestDispatcher view = request.getRequestDispatcher("/Template/home.jsp");
-            view.forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/home");
+
 
         } else {
 
