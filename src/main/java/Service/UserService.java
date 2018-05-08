@@ -75,4 +75,14 @@ public class UserService {
     public User login(String email, String password) {
         return checkLogin(email, password);
     }
+
+    public boolean addFriendTo(Integer id, Integer idfriend) {
+        UserMapper um = UserMapper.getInstance();
+        return um.addfriend(id, idfriend);
+    }
+
+    public boolean UnFriendTo(Integer id, Integer idfriend) {
+        UserMapper um = UserMapper.getInstance();
+        return um.deletefriend(id, idfriend);
+    }
 }

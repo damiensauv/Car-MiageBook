@@ -46,9 +46,11 @@ public class UserMapper extends DataMapper {
                 System.out.println("getFriend User not in bd " + id);
                 return null;
             }
+            rs.beforeFirst();
 
             while (rs.next()) {
-                User u = this.createUser(rs);
+                System.out.println("Yolo " + rs.getInt("Id_Friend"));
+                User u = this.find(rs.getInt("Id_Friend"));
                 users.add(u);
             }
             return users;
@@ -72,9 +74,11 @@ public class UserMapper extends DataMapper {
                 System.out.println("Find User not in bd " + id);
                 return null;
             }
-
+            System.out.println("Find User");
             User u = this.createUser(rs);
-            u.setFriends(this.getFriend(id));
+            List<User> users = this.getFriend(u.getId());
+            if (users != null)
+                u.setFriends(users);
 
             return u;
         } catch (SQLException e) {
@@ -111,7 +115,9 @@ public class UserMapper extends DataMapper {
             }
             // create User
             User u = this.createUser(rs);
-            u.setFriends(this.getFriend(u.getId()));
+            List<User> users = this.getFriend(u.getId());
+            if (users != null)
+                u.setFriends(users);
             return u;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -132,7 +138,9 @@ public class UserMapper extends DataMapper {
             }
             // create User
             User u = this.createUser(rs);
-            u.setFriends(this.getFriend(u.getId()));
+            List<User> users = this.getFriend(u.getId());
+            if (users != null)
+                u.setFriends(users);
             return u;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -159,6 +167,41 @@ public class UserMapper extends DataMapper {
             return null;
         }
 
+
+    }
+
+    @SuppressWarnings("Duplicates")
+    public boolean addfriend(Integer id, Integer idfriend) {
+        String req = "INSERT INTO Friends (Id_User, Id_Friend) VALUES (?,?)";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(req);
+
+            ps.setInt(1, id);
+            ps.setInt(2, idfriend);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @SuppressWarnings("Duplicates")
+    public boolean deletefriend(Integer id, Integer idfriend) {
+        String req = "DELETE FROM Friends WHERE Id_User=? AND Id_Friend=?";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(req);
+
+            ps.setInt(1, id);
+            ps.setInt(2, idfriend);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
 
     }
 }

@@ -14,25 +14,15 @@
 
 <div class="container">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <%@ include file="navbar.jsp" %>
 
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="#">Home</a>
-                <a class="nav-item nav-link" href="#">Profile</a>
-                <a class="nav-item nav-link" href="/allUsers">All Users</a>
-                <a class="nav-item nav-link" href="#">Logout</a>
-            </div>
-        </div>
-    </nav>
-
-<!--
-    <form class="form-status" action="/homeStatus" method="POST">
-        <label for="inputstatus" class="sr-only">Status : </label>
-        <input name="status" type="text" id="inputstatus" class="form-control" placeholder="Write status">
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Publish</button>
-    </form>
--->
+    <!--
+        <form class="form-status" action="/homeStatus" method="POST">
+            <label for="inputstatus" class="sr-only">Status : </label>
+            <input name="status" type="text" id="inputstatus" class="form-control" placeholder="Write status">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Publish</button>
+        </form>
+    -->
 
 </div> <!-- /container -->
 

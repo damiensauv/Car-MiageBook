@@ -3,6 +3,7 @@ package Domain;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -23,10 +24,11 @@ public class User {
         this.password = password;
         this.prenom = name;
         this.nom = surname;
+        this.friends = new ArrayList<>();
     }
 
     public User() {
-
+        this.friends = new ArrayList<>();
     }
 
     public boolean isFriend(Integer idFriend) {
@@ -35,7 +37,11 @@ public class User {
             return false;
 
         for (User u : friends) {
+
+            System.out.println("Friends : " + u.getId());
+
             if (u.getId().equals(idFriend)) {
+
                 return true;
             }
         }

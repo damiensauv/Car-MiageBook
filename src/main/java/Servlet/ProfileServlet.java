@@ -30,7 +30,7 @@ public class ProfileServlet extends HttpServlet {
         User user = userService.getUser(id);
         request.setAttribute("user", user);
 
-        RequestDispatcher view = request.getRequestDispatcher("/Template/Profile.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("/Template/profile.jsp");
         view.forward(request, response);
     }
 

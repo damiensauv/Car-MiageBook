@@ -5,6 +5,7 @@
 <head>
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <title>Title</title>
 </head>
@@ -18,17 +19,7 @@
 
 <div class="container">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="#">Home</a>
-                <a class="nav-item nav-link" href="#">Profile</a>
-                <a class="nav-item nav-link" href="#">All Users</a>
-                <a class="nav-item nav-link" href="#">Logout</a>
-            </div>
-        </div>
-    </nav>
+    <%@ include file="navbar.jsp" %>
 
     <ul>
         <%
@@ -42,11 +33,15 @@
 
             <% if (user.isFriend(u.getId())) { %>
 
-            <button type="submit" value="submit" id="<%out.print(u.getId());%>">Unfollow</button>
+            <button type="submit" id="<% out.print(u.getId()); %>" onclick="unfollow(<% out.print(u.getId()); %>)">
+                Unfollow
+            </button>
 
             <% } else { %>
 
-            <button type="submit" value="submit" id="<%out.print(u.getId());%>">follow</button>
+            <button type="submit" id="<% out.print(u.getId()); %>" onclick="follow(<% out.print(u.getId()); %>)">
+                follow
+            </button>
 
             <% }%>
 
@@ -61,4 +56,44 @@
 </div>
 
 </body>
+<script>
+
+    function follow(id) {
+
+        $.ajax({
+            type: 'POST',
+            url: '/rest/user/follow',
+            datatype: 'text',
+            data: id.toString(),
+            success: function (code) {
+                console.log(code)
+                if (code == 0) {
+                    $("#" + id).attr("onclick", "unfollow(" + id + ")");
+                    $("#" + id).text("Unfollow");
+                }
+            }
+        });
+
+    }
+
+    function unfollow(id) {
+
+        $.ajax({
+            type: 'POST',
+            url: '/rest/user/unfollow',
+            datatype: 'text',
+            data: id.toString(),
+            success: function (code) {
+                if (code == 0) {
+                    $("#" + id).attr("onclick", "follow(" + id + ")");
+                    $("#" + id).text("follow");
+                }
+            }
+        });
+    }
+
+
+</script>
+
+
 </html>
