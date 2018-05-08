@@ -16,13 +16,16 @@
 
     <%@ include file="navbar.jsp" %>
 
-    <!--
-        <form class="form-status" action="/homeStatus" method="POST">
-            <label for="inputstatus" class="sr-only">Status : </label>
-            <input name="status" type="text" id="inputstatus" class="form-control" placeholder="Write status">
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Publish</button>
-        </form>
-    -->
+<br>
+    <form class="form-status" action="/homeStatus" method="POST">
+        <label for="inputstatus" class="sr-only">Status : </label>
+
+        <input name="titre" type="text" id="inputTitre" class="form-control" placeholder="Write title">
+        <input name="status" type="text" id="inputstatus" class="form-control" placeholder="Write status">
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Publish</button>
+    </form>
+
 
 </div> <!-- /container -->
 

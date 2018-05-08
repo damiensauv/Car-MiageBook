@@ -23,12 +23,14 @@ public class StatusMapper extends DataMapper {
     public void insert(Status status) throws SQLException {
 
 
-        String query = "INSERT INTO Status (Text,Id_User) VALUES (?,?)";
+        String query = "INSERT INTO Status (Title,Text, Date, Id_User) VALUES (?,?,?,?)";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-        preparedStatement.setString(1, status.getText());
-        preparedStatement.setInt(2, status.getOwner().getId());
+        preparedStatement.setString(1, status.getTitle());
+        preparedStatement.setString(2, status.getText());
+        preparedStatement.setDate(3, java.sql.Date.valueOf(status.getDate().toLocalDate()));
+        preparedStatement.setInt(4, status.getOwner().getId());
         preparedStatement.executeUpdate();
 
     }

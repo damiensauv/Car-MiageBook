@@ -5,7 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.File;
-import java.util.Date;
+import java.time.LocalDateTime;
+
 
 @Getter
 @Setter
@@ -15,11 +16,13 @@ public class Status {
     private String title;
     private String text;
     private File image;
-    private Date date;
+    private LocalDateTime date;
     private User owner;
 
-    public Status(String text, User owner) {
-        this.text = text;
-        this.owner = owner;
+    public Status(String statusString, String titreString, User u) {
+        this.text = statusString;
+        this.title = titreString;
+        this.owner = u;
+        this.date = LocalDateTime.now();
     }
 }

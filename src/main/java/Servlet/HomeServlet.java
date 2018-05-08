@@ -4,6 +4,7 @@ import Domain.Status;
 import Domain.User;
 import Persistance.DataMapper.StatusMapper;
 import Persistance.DataMapper.UserMapper;
+import Service.StatusService;
 import Service.UserService;
 
 import javax.servlet.RequestDispatcher;
@@ -19,12 +20,14 @@ public class HomeServlet extends HttpServlet {
 
     private UserMapper userMapper;
     private UserService userService;
+    private StatusService statusService;
     private StatusMapper statusMapper;
 
     public HomeServlet() {
         userMapper = UserMapper.getInstance();
         userService = UserService.getInstance();
         statusMapper = StatusMapper.getInstance();
+        statusService = StatusService.getInstance();
     }
 
     @Override
@@ -48,24 +51,17 @@ public class HomeServlet extends HttpServlet {
         if (path.equals("/homeStatus")) {
 
             String statusString = request.getParameter("status");
+            String titreString = request.getParameter("titre");
             // recup from session la personne co
 
             HttpSession session = request.getSession();
-
             Integer id = (Integer) session.getAttribute("user");
-
-            // recup user
             User u = userMapper.find(id);
 
+            Status status = new Status(statusString, titreString, u);
 
-            Status status = new Status(statusString, u);
 
-
-            try {
-                statusMapper.insert(status);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            statusService.insert(status);
 
 
         } else if (path.equals("/homeCommentaire")) {

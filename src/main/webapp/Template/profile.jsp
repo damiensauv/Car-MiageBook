@@ -8,6 +8,7 @@
     <title>MiageBook - Home </title>
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 </head>
 
@@ -38,11 +39,15 @@
 
             <% if (user.isFriend(u.getId())) { %>
 
-            <button type="submit" value="submit" id="<%out.print(u.getId());%>">Unfollow</button>
+            <button type="submit" id="<% out.print(u.getId()); %>" onclick="unfollow(<% out.print(u.getId()); %>)">
+                Unfollow
+            </button>
 
             <% } else { %>
 
-            <button type="submit" value="submit" id="<%out.print(u.getId());%>">follow</button>
+            <button type="submit" id="<% out.print(u.getId()); %>" onclick="follow(<% out.print(u.getId()); %>)">
+                follow
+            </button>
 
             <% }%>
 
@@ -59,7 +64,39 @@
 </body>
 <script>
 
+    function follow(id) {
 
+        $.ajax({
+            type: 'POST',
+            url: '/rest/user/follow',
+            datatype: 'text',
+            data: id.toString(),
+            success: function (code) {
+                console.log(code)
+                if (code == 0) {
+                    $("#" + id).attr("onclick", "unfollow(" + id + ")");
+                    $("#" + id).text("Unfollow");
+                }
+            }
+        });
+
+    }
+
+    function unfollow(id) {
+
+        $.ajax({
+            type: 'POST',
+            url: '/rest/user/unfollow',
+            datatype: 'text',
+            data: id.toString(),
+            success: function (code) {
+                if (code == 0) {
+                    $("#" + id).attr("onclick", "follow(" + id + ")");
+                    $("#" + id).text("follow");
+                }
+            }
+        });
+    }
 
 
 </script>
