@@ -32,7 +32,8 @@
     </div>
     <br>
     <%
-        for (Commentaire c : coms) {
+        if (coms != null)
+            for (Commentaire c : coms) {
     %>
     <div style="border: black solid">
         <h3><% out.print(c.getOwner().getPseudo());%></h3>
@@ -41,7 +42,7 @@
     </div>
 
     <%
-        }
+            }
     %>
 
 
