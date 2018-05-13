@@ -24,7 +24,6 @@ public class AllUserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // TODO Check if User Connect
         HttpSession session = request.getSession();
         Integer id = (Integer) session.getAttribute("user");
 
